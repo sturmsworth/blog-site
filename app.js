@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const request = require(`request`)
+const _ = require('lodash')
 const ejs = require(`ejs`)
 
 const homeStartingContent = "Almost everything is going to happen for you automatically - you don't have to spend any time working or worrying. Very easy to work these to death. All you have to learn here is how to have fun. Let's make some happy little clouds in our world. You can spend all day playing with mountains. This is the time to get out all your flustrations, much better than kicking the dog around the house or taking it out on your spouse."
@@ -28,6 +28,18 @@ app.get('/contact', (req, res) => {
 
 app.get('/compose', (req, res) => {
     res.render('compose')
+})
+
+app.get(`/posts/:postTitle`, (req, res) => {
+    const requestedTitle = _.lowerCase(req.params.postTitle)
+    posts.forEach((post) => {
+        const postTitle = post.postTitle
+        const postBody = post.postBody
+        const storedTitle = _.lowerCase(post.postTitle.toLowerCase())
+        if (requestedTitle === storedTitle) {
+            res.render(`post`, { postTitle, postBody })
+        }
+    })
 })
 
 app.post('/compose', (req, res) => {

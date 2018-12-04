@@ -1,14 +1,18 @@
 <%- include(`partials/header`) -%>
-    <h1>Home</h1>
-    <p><%= homeStartingContent %></p>
+    <h1>Latest Posts</h1>
+    <br>
+    <br>
     <div id='posts-holder'>
         <% posts.forEach((post) => { %>
             <div class='post'>    
-                <div class='post-title'>
+                <a href=''><div class='post-title'></a>
                     <h1><%= post.postTitle %></h1>
                 </div>
                 <div class='post-body'>
-                    <p><%= post.postBody %></p>
+                    <p>
+                        <%= post.postBody.substring(0, 800) + "... "%>
+                        <a href='/posts/<%=post.postTitle%>'>Read More</a>
+                    </p>
                 </div>
             </div>
         <% }) %>
